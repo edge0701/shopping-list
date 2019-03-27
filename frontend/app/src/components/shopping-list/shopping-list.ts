@@ -22,10 +22,13 @@ class ShoppingList extends LitElement {
     <item-input @add-item="${this.onAddItem}"></item-input>
 
     <ul>
-      ${this.listItems.map(i =>
+      ${this.listItems.map((item, idx) =>
         html`
           <li>
-            <list-item .item="${i}"></list-item>
+            <list-item
+              .item="${item}"
+              @delete-item="${e => this.onDeleteItem(idx)}">
+            </list-item>
           </li>
         `)
       }
@@ -38,6 +41,13 @@ class ShoppingList extends LitElement {
     this.listItems = [
       ...this.listItems,
       item,
+    ];
+  }
+
+  private onDeleteItem(idx: number) {
+    this.listItems = [
+      ...this.listItems.slice(0, idx),
+      ...this.listItems.slice(idx + 1, this.listItems.length),
     ];
   }
 }
