@@ -4,7 +4,7 @@ export interface ShoppingListItem {
   name: string;
 }
 
-@customElement('shopping-list-item' as any)
+@customElement('list-item' as any)
 class ShoppingListItemEl extends LitElement {
 
   @property() public item: ShoppingListItem;

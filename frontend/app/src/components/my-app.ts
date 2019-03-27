@@ -1,6 +1,6 @@
 import { customElement, html, LitElement } from 'lit-element';
 
-import './shopping-list';
+import './shopping-list/shopping-list';
 
 @customElement('my-app' as any)
 class MyApp extends LitElement {

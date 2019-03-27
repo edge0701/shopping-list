@@ -1,7 +1,9 @@
 import { customElement, html, LitElement, property } from 'lit-element';
 
-import { ShoppingListItem } from './shopping-list-item';
-import './shopping-list-item';
+import './item-input';
+import { ShoppingListItemInputDetail } from './item-input';
+import { ShoppingListItem } from './list-item';
+import './list-item';
 
 @customElement('shopping-list' as any)
 class ShoppingList extends LitElement {
@@ -17,15 +19,25 @@ class ShoppingList extends LitElement {
     return html`
     <h1>Shopping list</h1>
 
+    <item-input @add-item="${this.onAddItem}"></item-input>
+
     <ul>
       ${this.listItems.map(i =>
         html`
           <li>
-            <shopping-list-item .item="${i}"></shopping-list-item>
+            <list-item .item="${i}"></list-item>
           </li>
         `)
       }
     </ul>
     `;
+  }
+
+  private onAddItem(ev: CustomEvent) {
+    const item: ShoppingListItemInputDetail = ev.detail;
+    this.listItems = [
+      ...this.listItems,
+      item,
+    ];
   }
 }
