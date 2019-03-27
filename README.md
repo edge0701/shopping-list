@@ -3,7 +3,7 @@
 The aim of project is to create a shopping list application.
 The requirements are as follows:
 
-- [ ] View a list of items on a shopping list
+- [X] View a list of items on a shopping list
 - [ ] Add items to the shopping list
 - [ ] Remove items from the shopping list
 - [ ] Ability to cross purchased items off the list
