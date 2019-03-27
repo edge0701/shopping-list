@@ -4,8 +4,8 @@ The aim of project is to create a shopping list application.
 The requirements are as follows:
 
 - [X] View a list of items on a shopping list
-- [ ] Add items to the shopping list
-- [ ] Remove items from the shopping list
+- [X] Add items to the shopping list
+- [X] Remove items from the shopping list
 - [ ] Ability to cross purchased items off the list
 - [ ] Persist the data
 - [ ] Change the order of items on the list
