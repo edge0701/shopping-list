@@ -1,0 +1,12 @@
+{
+  "extends": "tslint:recommended",
+  "rules": {
+    "arrow-parens": false,
+    "curly": false,
+    "interface-name": false,
+    "no-multi-spaces": true,
+    "object-literal-sort-keys": false,
+    "quotemark": [true, "single", "avoid-escape", "avoid-template"],
+    "variable-name": [ true, "check-format", "allow-leading-underscore"]
+  }
+}

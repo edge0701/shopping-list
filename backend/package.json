@@ -1,0 +1,35 @@
+{
+  "name": "sequelize-typescript-bootstrap",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "author": "Edward Watson",
+  "license": "MIT",
+  "private": false,
+  "description": "Using --keyofStringsOnly because of https://github.com/Microsoft/TypeScript/issues/23724",
+  "scripts": {
+    "clean": "rimraf build/",
+    "build": "tsc -p tsconfig.json",
+    "migrate": "sequelize db:migrate",
+    "migrate:undo": "sequelize db:migrate:undo",
+    "migrate:undo:all": "sequelize db:migrate:undo:all",
+    "seed": "sequelize db:seed",
+    "seed:all": "sequelize db:seed:all",
+    "seed:undo": "sequelize db:seed:undo",
+    "seed:undo:all": "sequelize db:seed:undo:all",
+    "start": "ts-node src/index.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^10.3.3",
+    "rimraf": "^2.6.2",
+    "sequelize-cli-typescript": "^3.2.0-c",
+    "sequelize-typescript": "^0.6.6",
+    "ts-node": "^8.0.3",
+    "tslint": "^5.11.0",
+    "typescript": "^3.1.1"
+  },
+  "dependencies": {
+    "pg": "^7.4.3",
+    "reflect-metadata": "^0.1.12",
+    "sequelize": "^4.39.0"
+  }
+}
