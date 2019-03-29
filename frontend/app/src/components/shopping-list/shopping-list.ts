@@ -1,8 +1,8 @@
-import { customElement, html, LitElement, property } from 'lit-element';
+import { customElement, html, LitElement, property, query } from 'lit-element';
 
 import * as api from '../../utils/api';
 import './item-input';
-import { ShoppingListItemInputDetail } from './item-input';
+import { ShoppingListItemInput } from './item-input';
 import { ShoppingListItem } from './list-item';
 import './list-item';
 
@@ -19,11 +19,17 @@ class ShoppingList extends LitElement {
     { name: 'Item 3' },
   ];
   @property() private errorMsg: string;
+  @query('item-input') private itemInput: ShoppingListItemInput;
   private listId: number;
 
   public render() {
     return html`
     <style>
+      :host {
+        display: block;
+        padding-left: 10px;
+      }
+
       .error {
         position: absolute;
         top: 0;
@@ -31,9 +37,14 @@ class ShoppingList extends LitElement {
         right: 0;
         color: red;
       }
+
       ul {
         list-style-type: none;
         padding: 0;
+      }
+
+      list-item {
+        padding: 5px 0 5px 0;
       }
     </style>
 
@@ -66,8 +77,12 @@ class ShoppingList extends LitElement {
         <li>
           <list-item
             .item="${item}"
+            ?first="${idx === 0}"
+            ?last="${idx === this.listItems.length - 1}"
             ?purchased="${item.purchased}"
             @delete="${e => this.onDeleteItem(idx)}"
+            @move-up="${e => this.onMoveItemUp(idx)}"
+            @move-down="${e => this.onMoveItemDown(idx)}"
             @status-changed="${e => this.onItemStatusChanged(idx, e.detail)}">
           </list-item>
         </li>
@@ -81,24 +96,71 @@ class ShoppingList extends LitElement {
     }
   }
 
-  private onAddItem(ev: CustomEvent) {
-    const item: ShoppingListItemInputDetail = ev.detail;
+  private async onAddItem(ev: CustomEvent) {
+    const item: ShoppingListItem = ev.detail;
+    const listItemsOrig = [...this.listItems];
+
     this.listItems = [
       ...this.listItems,
       item,
     ];
-    this.saveList();
+
+    try {
+      await this.saveList();
+    } catch (err) {
+      this.listItems = listItemsOrig;
+      this.itemInput.setText((item as any).namelol);
+    }
   }
 
-  private onDeleteItem(idx: number) {
+  private async onDeleteItem(idx: number) {
+    const listItemsOrig = [...this.listItems];
+
     this.listItems = [
       ...this.listItems.slice(0, idx),
       ...this.listItems.slice(idx + 1, this.listItems.length),
     ];
-    this.saveList();
+
+    try {
+      await this.saveList();
+    } catch (err) {
+      this.listItems = listItemsOrig;
+    }
   }
 
-  private onItemStatusChanged(idx: number, detail: any) {
+  private async onMoveItemUp(idx: number) {
+    if (idx === 0) return;
+    const listItemsOrig = [...this.listItems];
+    const listItemsCopy = [...this.listItems];
+
+    listItemsCopy.splice(idx - 1, 0, listItemsCopy.splice(idx, 1)[0]);
+    this.listItems = [...listItemsCopy];
+
+    try {
+      await this.saveList();
+    } catch (err) {
+      this.listItems = listItemsOrig;
+    }
+  }
+
+  private async onMoveItemDown(idx: number) {
+    if (idx === this.listItems.length - 1) return;
+    const listItemsOrig = [...this.listItems];
+    const listItemsCopy = [...this.listItems];
+
+    listItemsCopy.splice(idx + 1, 0, listItemsCopy.splice(idx, 1)[0]);
+    this.listItems = [...listItemsCopy];
+
+    try {
+      await this.saveList();
+    } catch (err) {
+      this.listItems = listItemsOrig;
+    }
+  }
+
+  private async onItemStatusChanged(idx: number, detail: any) {
+    const listItemsOrig = [...this.listItems];
+
     this.listItems = [
       ...this.listItems.slice(0, idx),
       {
@@ -107,7 +169,12 @@ class ShoppingList extends LitElement {
       },
       ...this.listItems.slice(idx + 1, this.listItems.length),
     ];
-    this.saveList();
+
+    try {
+      await this.saveList();
+    } catch (err) {
+      this.listItems = listItemsOrig;
+    }
   }
 
   private async saveList() {
@@ -115,6 +182,7 @@ class ShoppingList extends LitElement {
       const resp = await api.updateList(this.listId, { data: this.listItems });
     } catch (err) {
       this.errorMsg = err.message;
+      throw err;
     }
   }
 }

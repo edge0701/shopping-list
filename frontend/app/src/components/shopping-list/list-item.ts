@@ -16,12 +16,38 @@ class ShoppingListItemEl extends LitElement {
     return html`
 
     <style>
+      :host {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      }
+
       .name {
         font-size: 12px;
+        padding-right: 10px;
       }
 
       :host([purchased]) .name {
         text-decoration: line-through;
+      }
+
+      .ordering {
+        display: inline-block;
+        font-size: 14px;
+      }
+
+      .ordering > .up, .ordering > .down {
+        cursor: pointer;
+      }
+
+      :host([first]) .ordering > .up {
+        opacity: 0;
+        cursor: default;
+      }
+
+      :host([last]) .ordering > .down {
+        opacity: 0;
+        cursor: default;
       }
 
       .delete {
@@ -31,8 +57,18 @@ class ShoppingListItemEl extends LitElement {
         font-size: 10px;
         cursor: pointer;
       }
+
+      #checkbox {
+        margin: 0 10px 0 10px;
+        min-height: 15px;
+        min-width: 15px;
+      }
     </style>
 
+    <div class="ordering">
+      <div class="up" @click="${this.onMoveUp}">▲</div>
+      <div class="down" @click="${this.onMoveDown}">▼</div>
+    </div>
     <input id="checkbox" type="checkbox" @click="${this.onCheckboxChanged}"/>
     <span class="name">${this.item ? this.item.name : null}</span>
     <span class="delete" @click="${this.onDeleteItem}">(Delete)</span>
@@ -54,6 +90,16 @@ class ShoppingListItemEl extends LitElement {
 
   public get item(): ShoppingListItem {
     return this._item;
+  }
+
+  private onMoveUp() {
+    if (this.hasAttribute('first')) return;
+    this.dispatchEvent(new CustomEvent('move-up'));
+  }
+
+  private onMoveDown() {
+    if (this.hasAttribute('last')) return;
+    this.dispatchEvent(new CustomEvent('move-down'));
   }
 
   private onDeleteItem() {

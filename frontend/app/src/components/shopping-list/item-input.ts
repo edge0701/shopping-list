@@ -1,11 +1,9 @@
-import { customElement, html, LitElement, property, query } from 'lit-element';
+import { customElement, html, LitElement, query } from 'lit-element';
 
-export interface ShoppingListItemInputDetail {
-  name: string;
-}
+import { ShoppingListItem } from './list-item';
 
 @customElement('item-input' as any)
-class ShoppingListItemInput extends LitElement {
+export class ShoppingListItemInput extends LitElement {
 
   @query('#input') private inputEl: HTMLInputElement;
 
@@ -15,9 +13,13 @@ class ShoppingListItemInput extends LitElement {
     `;
   }
 
+  public setText(text: string) {
+    this.inputEl.value = text;
+  }
+
   private onKeyUp(ev: KeyboardEvent) {
     if (ev.keyCode === 13 || ev.which === 13) {
-      const item: ShoppingListItemInputDetail = {
+      const item: ShoppingListItem = {
         name: this.inputEl.value,
       };
       if (this.dispatchEvent(new CustomEvent('add-item', { detail: item }))) {
