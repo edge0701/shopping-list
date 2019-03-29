@@ -20,11 +20,6 @@ import User from './user';
 export default class ShoppingList extends Model<ShoppingList> {
 
     @AllowNull(false)
-    @Is(new RegExp(/^[\p{L}\p{N}0-9 .-]{1,40}$/, 'u'))
-    @Column({type: DataType.STRING(40)})
-    public name: string;
-
-    @AllowNull(false)
     @Column({type: DataType.JSONB})
     public data: object;
 

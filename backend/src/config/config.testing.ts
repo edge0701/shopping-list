@@ -1,4 +1,24 @@
 /* tslint:disable:object-literal-sort-keys */
+import { format, transports } from 'winston';
 
-export default {
+import { AppConfig } from '.';
+
+const config: AppConfig = {
+  http: {
+    port: 10001,
+  },
+  logger: {
+    level: 'info',
+    transports: [
+      new transports.Console({
+        format: format.combine(
+          format.colorize(),
+          format.splat(),
+          format.simple(),
+        ),
+      }),
+    ],
+  },
 };
+
+export default config;

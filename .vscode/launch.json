@@ -1,0 +1,30 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Backend (node)",
+      "preLaunchTask": "backend:build",
+      "program": "${workspaceFolder}/backend/build/index.js",
+      "outputCapture": "std"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Backend (ts-node)",
+      "cwd": "${workspaceFolder}/backend",
+      "outputCapture": "std",
+      "runtimeArgs": [
+        "-r",
+        "ts-node/register"
+      ],
+      "args": [
+          "${workspaceFolder}/backend/src/index.ts"
+      ]
+    }
+  ]
+}
