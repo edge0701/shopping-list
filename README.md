@@ -17,6 +17,14 @@ The requirements are as follows:
 
 I am planning on spending a total of 6 hours on the project and I am aiming to complete the first 6 tasks in that time
 
+## How to run
+Start PostgreSQL database:
+```console
+docker-compose up
+```
+
+Follow instructions in backend and frontend README files
+
 Here is an example of the application in operation:
 
 ![](screencast.gif)

@@ -50,3 +50,8 @@ Undo all seeds
 ```console
 yarn seed:undo:all
 ```
+
+## Running
+```console
+yarn start
+```
