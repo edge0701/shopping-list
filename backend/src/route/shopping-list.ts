@@ -11,10 +11,10 @@ router.post('/:id', async (req, res) => {
       id: req.params.id,
       data: req.body.data,
     });
-    res.status(200).send();
+    res.status(200).send({});
   } catch (err) {
     log.error(err);
-    res.status(500).send();
+    res.status(500).send({});
   }
 });
 
