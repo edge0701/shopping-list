@@ -7,8 +7,8 @@ The requirements are as follows:
 - [X] Add items to the shopping list
 - [X] Remove items from the shopping list
 - [X] Ability to cross purchased items off the list
-- [ ] Persist the data
-- [ ] Change the order of items on the list
+- [X] Persist the data
+- [X] Change the order of items on the list
 - [ ] Use an API to fetch prices on the list
 - [ ] Display the total cost of the items
 - [ ] Set a spending limit and alert if exceeded
@@ -16,3 +16,7 @@ The requirements are as follows:
 - [ ] Add user authentication and authorisation
 
 I am planning on spending a total of 6 hours on the project and I am aiming to complete the first 6 tasks in that time
+
+Here is an example of the application in operation:
+
+![](screencast.gif)
