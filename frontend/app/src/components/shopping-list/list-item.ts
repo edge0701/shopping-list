@@ -23,6 +23,8 @@ class ShoppingListItemEl extends LitElement {
       }
 
       .name {
+        display: flex;
+        flex: 1 0 auto;
         font-size: 12px;
         padding-right: 10px;
       }
@@ -38,6 +40,11 @@ class ShoppingListItemEl extends LitElement {
 
       .ordering > .up, .ordering > .down {
         cursor: pointer;
+        color: #c3c3c3;
+      }
+
+      .ordering > .up:hover, .ordering > .down:hover {
+        color: black;
       }
 
       :host([first]) .ordering > .up {
@@ -52,7 +59,7 @@ class ShoppingListItemEl extends LitElement {
 
       .delete {
         text-decoration: underline;
-        color: blue;
+        color: red;
         font-style: italic;
         font-size: 10px;
         cursor: pointer;
@@ -71,7 +78,7 @@ class ShoppingListItemEl extends LitElement {
     </div>
     <input id="checkbox" type="checkbox" @click="${this.onCheckboxChanged}"/>
     <span class="name">${this.item ? this.item.name : null}</span>
-    <span class="delete" @click="${this.onDeleteItem}">(Delete)</span>
+    <span class="delete" @click="${this.onDeleteItem}">Delete</span>
     `;
   }
 
